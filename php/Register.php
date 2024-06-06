@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="container bg p-4 rounded-4 mt-5">
-        <form action="Login.php" class="form-group" method="post">
+        <form action="Register.php" class="form-group" method="post">
             <h2 class="text-center mb-4">Register</h2>
             <div class="mb-3">
                 <label for="username" class="form-label fw-semibold">Username</label>

@@ -32,30 +32,26 @@
     </nav>
 
     <div class="container">
-        <h2 class="text-center">Daftar Produk</h2>
-        <a href="tambah_produk.php" class="btn btn-success mb-3">Tambah Produk</a>
+        <h2 class="text-center mb-5 mt-3">Daftar Pengguna Sneckify</h2>
         <table class="table">
             <thead class="table-primary">
                 <tr>
                     <th>ID</th>
-                    <th>Nama Produk</th>
-                    <th>Harga</th>
-                    <th>Stok</th>
+                    <th>Username</th>
+                    <th>Email</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $result = $conn->query("SELECT * FROM produk");
+                $result = $conn->query("SELECT * FROM users");
                 while($row = $result->fetch_assoc()){
                     echo "<tr>
-                    <td>".$row["id_produk"]."</td>
-                    <td>".$row["nama_produk"]."</td>
-                    <td>Rp.".$row["harga"]."</td>
-                    <td>".$row["stok"]."</td>
+                    <td>".$row["id"]."</td>
+                    <td>".$row["username"]."</td>
+                    <td>".$row["email"]."</td>
                     <td>
-                    <a href='update.php?id_produk=".$row["id_produk"]."'>Edit</a>
-                    <a href='delete.php?id_produk=".$row["id_produk"]."'>Delete</a>
+                    <a href='delete_users.php?id=".$row["id"]."'>Delete</a>
                 </td>
                 </tr>";
                 }
