@@ -9,7 +9,7 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <p>hp</p>
+
 
     <div class="container">
         <h2 class="text-center">Daftar Produk</h2>
