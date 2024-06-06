@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Bulan Mei 2024 pada 13.05
+-- Waktu pembuatan: 06 Jun 2024 pada 14.42
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -61,6 +61,15 @@ CREATE TABLE `produk` (
   `stok` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `produk`
+--
+
+INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga`, `stok`) VALUES
+(1, 'Better', 2000.00, 12),
+(2, 'Sosis', 1000.00, 50),
+(3, 'Roti', 1000.00, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -68,12 +77,20 @@ CREATE TABLE `produk` (
 --
 
 CREATE TABLE `users` (
-  `id_users` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `is_admin` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`) VALUES
+(1, 'admin', 'admin@snackify.com', '$2y$10$NiqorU0mEDgTpTFsA1vkSemQ/YcAO5y9Gt0X7s6hoOUkuop38F7Mm', 1),
+(2, 'Aldo', 'aldopratama0707@gmail.com', '$2y$10$KcJQpcMITMpsYJP4T0JTX.W73SkwJqreCd.RJ5jrQkDd9p4DPWqZm', 0);
 
 --
 -- Indexes for dumped tables
@@ -98,6 +115,12 @@ ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -117,7 +140,13 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

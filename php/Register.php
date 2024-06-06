@@ -1,40 +1,32 @@
 <?php
-include 'Koneksi.php';
-
-$message = "";
+include('Koneksi.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $confirmPassword = isset($_POST['confirmPassword']) ? $_POST['confirmPassword'] : '';
 
-    if ($password !== $confirmPassword) {
-        $message = "Passwords do not match.";
-    } else {
-        $stmt = $conn->prepare("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
-        if ($stmt === false) {
-            die("Prepare failed: " . htmlspecialchars($conn->error));
-        }
-
-        
-        $stmt->bind_param("sss", $email, $username, $password);
-
-        if ($stmt->execute()) {
-            $message = "New record created successfully";
-
-            session_start();
-            $_SESSION['email'] = $email;
-
-            header("Location: Login.php");
-            exit();
-        } else {
-            $message = "Error: " . $stmt->error;
-        }
-
-        $stmt->close();
+    if (empty($email)) {
+        die("Email is required");
     }
 
+    if ($password !== $confirmPassword){
+        die("Passwords do not match");
+    } else {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $username, $email, $hashedPassword);
+
+        if ($stmt->execute()) {
+            header("Location: Login.php");
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
     $conn->close();
 }
 ?>
@@ -53,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="container bg p-4 rounded-4 mt-5">
-        <form action="Login.php" class="form-group" method="post">
+        <form action="Register.php" class="form-group" method="post">
             <h2 class="text-center mb-4">Register</h2>
             <div class="mb-3">
                 <label for="username" class="form-label fw-semibold">Username</label>
