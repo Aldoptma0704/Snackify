@@ -1,32 +1,40 @@
 <?php
-include('Koneksi.php');
+include 'Koneksi.php';
+
+$message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = isset($_POST['username']) ? $_POST['username'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $password = isset($_POST['password']) ? $_POST['password'] : '';
-    $confirmPassword = isset($_POST['confirmPassword']) ? $_POST['confirmPassword'] : '';
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
 
-    if (empty($email)) {
-        die("Email is required");
-    }
-
-    if ($password !== $confirmPassword){
-        die("Passwords do not match");
+    if ($password !== $confirmPassword) {
+        $message = "Passwords do not match.";
     } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
+        if ($stmt === false) {
+            die("Prepare failed: " . htmlspecialchars($conn->error));
+        }
 
-        $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $username, $email, $hashedPassword);
+        
+        $stmt->bind_param("sss", $email, $username, $password);
 
         if ($stmt->execute()) {
+            $message = "New record created successfully";
+
+            session_start();
+            $_SESSION['email'] = $email;
+
             header("Location: Login.php");
+            exit();
         } else {
-            echo "Error: " . $stmt->error;
+            $message = "Error: " . $stmt->error;
         }
+
         $stmt->close();
     }
+
     $conn->close();
 }
 ?>

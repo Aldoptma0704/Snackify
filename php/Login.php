@@ -1,13 +1,13 @@
 <?php
-include('Koneksi.php');
-
 session_start();
+include('Koneksi.php');
+$error = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-    if(!empty($username) && !empty($password)){
+    if (!empty($username) && !empty($password)) {
         $sql = "SELECT * FROM users WHERE username=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -21,20 +21,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['is_admin'] = $row['is_admin'];
 
+                // Redirect based on user role
                 if ($row['is_admin'] == 1) {
-                    header("Location: dashboard.php"); //ke admin
+                    header("Location: dashboard.php"); // Redirect to admin dashboard
                 } else {
-                    header("Location: HomePage.php"); //ke user
+                    header("Location: HomePage.php"); // Redirect to user homepage
                 }
                 exit();
             } else {
                 $error = "Invalid password.";
             }
-        }else{
-            $error = "No user found";
+        } else {
+            $error = "No user found.";
         }
-    }else{
-        $erorr = "Please enter both username and password.";
+    } else {
+        $error = "Please enter both username and password.";
     }
 }
 ?>
