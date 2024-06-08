@@ -22,7 +22,12 @@ if ($product) {
     }
 
     $_SESSION['keranjang'][] = $item;
+
+    $_SESSION['notifikasi'] = "Produk Berhasil ditambahkan ke keranjang";
+}else{
+    $_SESSION['notifikasi'] = "Produk tidak ditemukan";
 }
 
-header('Location: index.php');
+header('Location: beliproduk.php');
+exit();
 ?>
