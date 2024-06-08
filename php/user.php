@@ -47,11 +47,11 @@
                 $result = $conn->query("SELECT * FROM users");
                 while($row = $result->fetch_assoc()){
                     echo "<tr>
-                    <td>".$row["id"]."</td>
+                    <td>".$row["id_users"]."</td>
                     <td>".$row["username"]."</td>
                     <td>".$row["email"]."</td>
                     <td>
-                    <a class='btn btn-primary btn-sm' href='delete_users.php?id=".$row["id"]."'>Delete</a>
+                    <a class='btn btn-primary btn-sm' href='delete_users.php?id=".$row["id_users"]."'>Delete</a>
                 </td>
                 </tr>";
                 }
