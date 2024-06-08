@@ -51,7 +51,7 @@
                     <td>".$row["username"]."</td>
                     <td>".$row["email"]."</td>
                     <td>
-                    <a href='delete_users.php?id=".$row["id"]."'>Delete</a>
+                    <a class='btn btn-primary btn-sm' href='delete_users.php?id=".$row["id"]."'>Delete</a>
                 </td>
                 </tr>";
                 }

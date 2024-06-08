@@ -54,8 +54,8 @@
                     <td>Rp.".$row["harga"]."</td>
                     <td>".$row["stok"]."</td>
                     <td>
-                    <a href='update.php?id_produk=".$row["id_produk"]."'>Edit</a>
-                    <a href='delete.php?id_produk=".$row["id_produk"]."'>Delete</a>
+                    <a class='btn btn-primary btn-sm' href='update.php?id_produk=".$row["id_produk"]."'>Edit</a>
+                    <a class='btn btn-primary btn-sm' href='delete.php?id_produk=".$row["id_produk"]."'>Delete</a>
                 </td>
                 </tr>";
                 }

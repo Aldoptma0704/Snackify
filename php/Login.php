@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 if ($row['is_admin'] == 1) {
                     header("Location: dashboard.php"); //ke admin
                 } else {
-                    header("Location: HomePage.php"); //ke user
+                    header("Location: beliproduk.php"); //ke user
                 }
                 exit();
             } else {
