@@ -25,7 +25,7 @@
             <a class="nav-link" href="user.php">User</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="riwayatbelanja.php">Riwayat</a>
+            <a class="nav-link" href="riwayatbelanjaadmin.php">Riwayat</a>
         </ul>
         </div>
     </div>
