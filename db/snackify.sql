@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Jun 2024 pada 14.42
+-- Waktu pembuatan: 10 Jun 2024 pada 18.11
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -66,9 +66,29 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga`, `stok`) VALUES
-(1, 'Better', 2000.00, 12),
-(2, 'Sosis', 1000.00, 50),
-(3, 'Roti', 1000.00, 10);
+(1, 'Better', 3000.00, 8),
+(2, 'Sosis', 1000.00, 48);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `riwayat_transaksi`
+--
+
+CREATE TABLE `riwayat_transaksi` (
+  `id_transaksi` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga` decimal(10,2) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `riwayat_transaksi`
+--
+
+INSERT INTO `riwayat_transaksi` (`id_transaksi`, `id_produk`, `jumlah`, `harga`, `tanggal`) VALUES
+(3, 2, 2, 1000.00, '2024-06-10 16:11:24');
 
 -- --------------------------------------------------------
 
@@ -115,6 +135,13 @@ ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
+-- Indeks untuk tabel `riwayat_transaksi`
+--
+ALTER TABLE `riwayat_transaksi`
+  ADD PRIMARY KEY (`id_transaksi`),
+  ADD KEY `id_produk` (`id_produk`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -140,13 +167,29 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `riwayat_transaksi`
+--
+ALTER TABLE `riwayat_transaksi`
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `riwayat_transaksi`
+--
+ALTER TABLE `riwayat_transaksi`
+  ADD CONSTRAINT `riwayat_transaksi_ibfk_1` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
