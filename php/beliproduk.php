@@ -23,7 +23,7 @@ include 'Koneksi.php'; ?>
             <a class="nav-link active" aria-current="page" href="beliproduk.php">Home</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="riwayat.php">Riwayat</a>
+            <a class="nav-link active" aria-current="page" href="riwayatbelanja.php">Riwayat</a>
             </li>
         </ul>
         </div>

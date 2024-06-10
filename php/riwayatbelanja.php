@@ -2,20 +2,11 @@
 session_start();
 include 'Koneksi.php';
 
-// Cek apakah pengguna sudah login
-if (!isset($_SESSION['id_pengguna'])) {
-    header('Location: login.php');
-    exit;
-}
-
-$id_pengguna = $_SESSION['id_pengguna'];
-
 // Ambil data riwayat transaksi dari database
-$result = $conn->query("SELECT riwayat_transaksi.*, produk.nama_produk 
-                        FROM riwayat_transaksi 
-                        JOIN produk ON riwayat_transaksi.id_produk = produk.id_produk 
-                        WHERE riwayat_transaksi.id_pengguna = $id_pengguna 
-                        ORDER BY riwayat_transaksi.tanggal DESC");
+$result = $conn->query("SELECT rt.*, p.nama_produk 
+                        FROM riwayat_transaksi rt
+                        JOIN produk p ON rt.id_produk = p.id_produk
+                        ORDER BY rt.tanggal DESC");
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +16,7 @@ $result = $conn->query("SELECT riwayat_transaksi.*, produk.nama_produk
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Riwayat Transaksi</title>
+    <title>Riwayat Belanja</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg text-light bg-light">
@@ -40,29 +31,29 @@ $result = $conn->query("SELECT riwayat_transaksi.*, produk.nama_produk
             <a class="nav-link active" aria-current="page" href="beliproduk.php">Home</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="riwayat.php">Riwayat</a>
+            <a class="nav-link" href="riwayatbelanja.php">Riwayat</a>
         </ul>
         </div>
     </div>
     </nav>
 
     <div class="container">
-        <h2 class="text-center my-4">Riwayat Transaksi</h2>
+        <h2 class="text-center my-4">Riwayat Belanja</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID Transaksi</th>
                     <th>Nama Produk</th>
                     <th>Jumlah</th>
+                    <th>Harga</th>
                     <th>Tanggal</th>
                 </tr>
             </thead>
             <tbody>
                 <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo $row['id_transaksi']; ?></td>
                         <td><?php echo $row['nama_produk']; ?></td>
                         <td><?php echo $row['jumlah']; ?></td>
+                        <td><?php echo number_format($row['harga'], 2, ',', '.'); ?></td>
                         <td><?php echo $row['tanggal']; ?></td>
                     </tr>
                 <?php endwhile; ?>

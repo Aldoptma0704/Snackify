@@ -2,6 +2,7 @@
 session_start();
 include 'Koneksi.php';
 
+// Pastikan keranjang belanja tidak kosong
 if (!isset($_SESSION['keranjang']) || empty($_SESSION['keranjang'])) {
     header('Location: index.php');
     exit;
@@ -9,13 +10,23 @@ if (!isset($_SESSION['keranjang']) || empty($_SESSION['keranjang'])) {
 
 $keranjang = $_SESSION['keranjang'];
 
-// Proses pesanan
+// Proses setiap item dalam keranjang
 foreach ($keranjang as $item) {
     $id_produk = $item['id_produk'];
     $jumlah = $item['jumlah'];
-    
+
     // Kurangi stok dari database
     $conn->query("UPDATE produk SET stok = stok - $jumlah WHERE id_produk = '$id_produk'");
+
+    // Ambil harga produk
+    $result = $conn->query("SELECT harga FROM produk WHERE id_produk = '$id_produk'");
+    $produk = $result->fetch_assoc();
+    $harga = $produk['harga'];
+
+    // Tambahkan ke riwayat transaksi
+    $stmt = $conn->prepare("INSERT INTO riwayat_transaksi (id_produk, jumlah, harga) VALUES (?, ?, ?)");
+    $stmt->bind_param("iid", $id_produk, $jumlah, $harga);
+    $stmt->execute();
 }
 
 // Kosongkan keranjang
@@ -43,12 +54,11 @@ unset($_SESSION['keranjang']);
             <a class="nav-link active" aria-current="page" href="beliproduk.php">Home</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Riwayat</a>
+            <a class="nav-link" href="riwayatbelanja.php">Riwayat</a>
         </ul>
         </div>
     </div>
     </nav>
-
 
     <div class="container d-flex flex-column align-items-center justify-content-center">
         <h2 class="text-center">Checkout Berhasil</h2>
