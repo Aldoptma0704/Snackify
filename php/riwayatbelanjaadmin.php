@@ -16,7 +16,7 @@ $result = $conn->query("SELECT rt.*, p.nama_produk
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Riwayat Belanja</title>
+    <title>Riwayat Belanja User</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg text-light bg-light">
@@ -41,7 +41,7 @@ $result = $conn->query("SELECT rt.*, p.nama_produk
     </nav>
 
     <div class="container">
-        <h2 class="text-center my-4">Riwayat Belanja</h2>
+        <h2 class="text-center my-4">Riwayat Pembelian User</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>

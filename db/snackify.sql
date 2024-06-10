@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Jun 2024 pada 18.11
+-- Waktu pembuatan: 10 Jun 2024 pada 22.56
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -24,29 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `orders`
+-- Struktur dari tabel `feedback`
 --
 
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
-  `id_users` int(11) NOT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` enum('Pending','Processing','Completed') DEFAULT 'Pending'
+CREATE TABLE `feedback` (
+  `id_feedback` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `kritik` text NOT NULL,
+  `saran` text NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Struktur dari tabel `order_items`
+-- Dumping data untuk tabel `feedback`
 --
 
-CREATE TABLE `order_items` (
-  `id` int(11) NOT NULL,
-  `orders_id` int(11) NOT NULL,
-  `produk_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `subtotal` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `feedback` (`id_feedback`, `user_id`, `kritik`, `saran`, `tanggal`) VALUES
+(1, 2, 'Warung ini sebaiknya menambah variasi jajanan agar pelanggan memiliki lebih banyak pilihan.', 'Saran saya, warung ini bisa menyediakan sistem pemesanan online agar lebih memudahkan pelanggan yang sibuk.', '2024-06-10 20:50:13');
 
 -- --------------------------------------------------------
 
@@ -66,8 +60,9 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga`, `stok`) VALUES
-(1, 'Better', 3000.00, 8),
-(2, 'Sosis', 1000.00, 48);
+(1, 'Better', 2000.00, 12),
+(2, 'Sosis', 1000.00, 50),
+(5, 'Roti', 1000.00, 12);
 
 -- --------------------------------------------------------
 
@@ -88,7 +83,11 @@ CREATE TABLE `riwayat_transaksi` (
 --
 
 INSERT INTO `riwayat_transaksi` (`id_transaksi`, `id_produk`, `jumlah`, `harga`, `tanggal`) VALUES
-(3, 2, 2, 1000.00, '2024-06-10 16:11:24');
+(3, 2, 2, 1000.00, '2024-06-10 16:11:24'),
+(4, 2, 2, 1000.00, '2024-06-10 16:20:07'),
+(5, 2, 2, 1000.00, '2024-06-10 16:42:22'),
+(6, 2, 2, 1000.00, '2024-06-10 20:06:47'),
+(7, 2, 2, 1000.00, '2024-06-10 20:06:47');
 
 -- --------------------------------------------------------
 
@@ -117,16 +116,10 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`) VALUES
 --
 
 --
--- Indeks untuk tabel `orders`
+-- Indeks untuk tabel `feedback`
 --
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `order_items`
---
-ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id_feedback`);
 
 --
 -- Indeks untuk tabel `produk`
@@ -152,28 +145,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT untuk tabel `orders`
+-- AUTO_INCREMENT untuk tabel `feedback`
 --
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `order_items`
---
-ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `feedback`
+  MODIFY `id_feedback` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_transaksi`
 --
 ALTER TABLE `riwayat_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

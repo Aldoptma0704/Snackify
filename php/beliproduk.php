@@ -25,6 +25,9 @@ include 'Koneksi.php'; ?>
             <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="riwayatbelanja.php">Riwayat</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" href="feedback.php">Feedback</a>
+            </li>
         </ul>
         </div>
     </div>

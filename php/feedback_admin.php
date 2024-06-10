@@ -27,7 +27,7 @@
             <li class="nav-item">
             <a class="nav-link" href="riwayatbelanjaadmin.php">Riwayat</a>
             <li class="nav-item">
-            <a class="nav-link" href="feedback_admin.php">Feedback</a>
+            <a class="nav-link" href="feedback.php">Feedback</a>
             </li>
         </ul>
         </div>
@@ -35,30 +35,25 @@
     </nav>
 
     <div class="container">
-        <h2 class="text-center">Daftar Stok Produk</h2>
-        <a href="tambah_produk.php" class="btn btn-success mb-3">Tambah Produk</a>
+        <h2 class="text-center">Feedback Pelanggan</h2>
         <table class="table">
             <thead class="table-primary">
                 <tr>
-                    <th>ID</th>
-                    <th>Nama Produk</th>
-                    <th>Harga</th>
-                    <th>Stok</th>
-                    <th>Action</th>
+                    <th>Id</th>
+                    <th>Kritik</th>
+                    <th>Saran</th>
+                    <th>tanggal</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $result = $conn->query("SELECT * FROM produk");
+                $result = $conn->query("SELECT * FROM feedback");
                 while($row = $result->fetch_assoc()){
                     echo "<tr>
-                    <td>".$row["id_produk"]."</td>
-                    <td>".$row["nama_produk"]."</td>
-                    <td>Rp.".$row["harga"]."</td>
-                    <td>".$row["stok"]."</td>
-                    <td>
-                    <a class='btn btn-primary btn-sm' href='update.php?id_produk=".$row["id_produk"]."'>Edit</a>
-                    <a class='btn btn-primary btn-sm' href='delete.php?id_produk=".$row["id_produk"]."'>Delete</a>
+                    <td>".$row["id_feedback"]."</td>
+                    <td>".$row["kritik"]."</td>
+                    <td>".$row["saran"]."</td>
+                    <td>".$row["tanggal"]."</td>
                 </td>
                 </tr>";
                 }
