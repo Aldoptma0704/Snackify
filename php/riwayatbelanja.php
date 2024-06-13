@@ -2,11 +2,27 @@
 session_start();
 include 'Koneksi.php';
 
-// Ambil data riwayat transaksi dari database
-$result = $conn->query("SELECT rt.*, p.nama_produk 
-                        FROM riwayat_transaksi rt
-                        JOIN produk p ON rt.id_produk = p.id_produk
-                        ORDER BY rt.tanggal DESC");
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to login page if not logged in
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Ambil data riwayat transaksi dari database sesuai dengan id user yang sedang login
+$sql = "SELECT rt.*, p.nama_produk 
+        FROM riwayat_transaksi rt
+        JOIN produk p ON rt.id_produk = p.id_produk
+        WHERE rt.id_user = '$user_id'
+        ORDER BY rt.tanggal DESC";
+
+$result = $conn->query($sql);
+
+if (!$result) {
+    // Display the error message if query fails
+    die("Query failed: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>
