@@ -8,6 +8,8 @@ if (!isset($_SESSION['keranjang']) || empty($_SESSION['keranjang'])) {
     exit;
 }
 
+$user_id = $_SESSION['user_id']; // Ambil ID user dari session
+
 $keranjang = $_SESSION['keranjang'];
 
 // Proses setiap item dalam keranjang
@@ -24,8 +26,8 @@ foreach ($keranjang as $item) {
     $harga = $produk['harga'];
 
     // Tambahkan ke riwayat transaksi
-    $stmt = $conn->prepare("INSERT INTO riwayat_transaksi (id_produk, jumlah, harga) VALUES (?, ?, ?)");
-    $stmt->bind_param("iid", $id_produk, $jumlah, $harga);
+    $stmt = $conn->prepare("INSERT INTO riwayat_transaksi (id_user, id_produk, jumlah, harga) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("iiid", $user_id, $id_produk, $jumlah, $harga);
     $stmt->execute();
 }
 
@@ -44,7 +46,7 @@ unset($_SESSION['keranjang']);
 <body>
 <nav class="navbar navbar-expand-lg text-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="dashboard.php">SNACKIFY</a>
+        <a class="navbar-brand" href="beliproduk.php">SNACKIFY</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -54,7 +56,11 @@ unset($_SESSION['keranjang']);
             <a class="nav-link active" aria-current="page" href="beliproduk.php">Home</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="riwayatbelanja.php">Riwayat</a>
+            <a class="nav-link active" aria-current="page" href="riwayatbelanja.php">Riwayat</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="feedback.php">Feedback</a>
+            </li>
         </ul>
         </div>
     </div>
