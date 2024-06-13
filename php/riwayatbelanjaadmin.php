@@ -34,12 +34,15 @@ $result = $conn->query("SELECT rt.*, p.nama_produk
             <a class="nav-link" href="user.php">User</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="riwayatbelanja.php">Riwayat</a>
+            <a class="nav-link" href="riwayatbelanjaadmin.php">Riwayat</a>
+            <li class="nav-item">
+            <a class="nav-link" href="feedback_admin.php">Feedback</a>
+            </li>
         </ul>
         </div>
     </div>
     </nav>
-
+    
     <div class="container">
         <h2 class="text-center my-4">Riwayat Pembelian User</h2>
         <table class="table table-bordered">

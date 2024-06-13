@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg text-light bg-light">
+<nav class="navbar navbar-expand-lg text-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="dashboard.php">SNACKIFY</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,10 @@
             <a class="nav-link" href="user.php">User</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Riwayat</a>
+            <a class="nav-link" href="riwayatbelanjaadmin.php">Riwayat</a>
+            <li class="nav-item">
+            <a class="nav-link" href="feedback_admin.php">Feedback</a>
+            </li>
         </ul>
         </div>
     </div>
