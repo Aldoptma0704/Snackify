@@ -60,7 +60,7 @@ if (!$result) {
     <div class="container">
         <h2 class="text-center my-4">Riwayat Belanja</h2>
         <table class="table table-bordered">
-            <thead>
+            <thead class="table-primary text-center">
                 <tr>
                     <th>Nama Produk</th>
                     <th>Jumlah</th>
@@ -70,7 +70,7 @@ if (!$result) {
             </thead>
             <tbody>
                 <?php while($row = $result->fetch_assoc()): ?>
-                    <tr>
+                    <tr class="text-center">
                         <td><?php echo $row['nama_produk']; ?></td>
                         <td><?php echo $row['jumlah']; ?></td>
                         <td><?php echo number_format($row['harga'], 2, ',', '.'); ?></td>
